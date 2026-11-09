@@ -55,3 +55,7 @@ The printed texts (for example "Health social security tax") were left unchanged
 **12. Method `calculateAdvanceTax`:** it had no parameters and read three fields, and wrote its result into a field (side effect).
 Now it receives the values as parameters and returns the result.
 *Rule: Have no side effects, Prefer fewer arguments only when they are hidden inputs.*
+
+**13. Method `calculateTax`:** it wrote its result into a field instead of returning it.
+Now it only returns the result; the caller stores it.
+*Rule: Have no side effects.*

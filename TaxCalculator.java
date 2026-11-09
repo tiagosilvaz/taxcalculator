@@ -73,7 +73,7 @@ public class TaxCalculator {
 					.parseDouble(wholeNumberFormat.format(taxedIncome));
 			System.out.println("income " + taxedIncome
 					+ " rounded " + wholeNumberFormat.format(taxedIncome0));
-			calculateTax(taxedIncome0);
+			advanceTax = calculateTax(taxedIncome0);
 			System.out.println("Advance tax 18 % = "
 					+ advanceTax);
 			System.out.println("Tax free income = " + taxFreeIncome);
@@ -115,7 +115,7 @@ public class TaxCalculator {
 			double taxedIncome0 = Double.parseDouble(wholeNumberFormat.format(taxedIncome));
 			System.out.println("income to be taxed = " + taxedIncome
 					+ " rounded = " + wholeNumberFormat.format(taxedIncome0));
-			calculateTax(taxedIncome0);
+			advanceTax = calculateTax(taxedIncome0);
 			System.out.println("Advance tax 18 % = "
 					+ advanceTax);
 			double taxPaid = 0;
@@ -141,8 +141,8 @@ public class TaxCalculator {
 		return advanceTax - healthContributionDeductible - taxFreeIncome;
 	}
 
-	public static void calculateTax(double income) {
-		advanceTax = (income * ADVANCE_TAX_RATE_PERCENT) / 100;
+	public static double calculateTax(double income) {
+		return (income * ADVANCE_TAX_RATE_PERCENT) / 100;
 	}
 
 	public static double calculateIncome(double income) {

@@ -51,7 +51,9 @@ public class TaxCalculator {
 		if (contractType == 'E') {
 			System.out.println("EMPLOYMENT");
 			System.out.println("Income " + income);
-			calculateIncome(income);
+			pensionContribution = calculatePensionContribution(income);
+			disabilityContribution = calculateDisabilityContribution(income);
+			sicknessContribution = calculateSicknessContribution(income);
 			System.out.println("Social security tax "
 					+ twoDecimalsFormat.format(pensionContribution));
 
@@ -94,7 +96,10 @@ public class TaxCalculator {
 							+ twoDecimalsFormat.format(netIncome));
 		} else if (contractType == 'C') {
 			System.out.println("income " + income);
-			double incomeAfterSocialContributions = calculateIncome(income);
+			pensionContribution = calculatePensionContribution(income);
+			disabilityContribution = calculateDisabilityContribution(income);
+			sicknessContribution = calculateSicknessContribution(income);
+			double incomeAfterSocialContributions = calculateIncomeAfterSocialContributions(income);
 			System.out.println("Social security tax = "
 					+ twoDecimalsFormat.format(pensionContribution));
 			System.out.println("Health social security tax = "
@@ -147,11 +152,23 @@ public class TaxCalculator {
 		return (income * ADVANCE_TAX_RATE_PERCENT) / 100;
 	}
 
-	public static double calculateIncome(double income) {
-		pensionContribution = (income * PENSION_RATE_PERCENT) / 100;
-		disabilityContribution = (income * DISABILITY_RATE_PERCENT) / 100;
-		sicknessContribution = (income * SICKNESS_RATE_PERCENT) / 100;
-		return (income - pensionContribution - disabilityContribution - sicknessContribution);
+	public static double calculatePensionContribution(double income) {
+		return (income * PENSION_RATE_PERCENT) / 100;
+	}
+
+	public static double calculateDisabilityContribution(double income) {
+		return (income * DISABILITY_RATE_PERCENT) / 100;
+	}
+
+	public static double calculateSicknessContribution(double income) {
+		return (income * SICKNESS_RATE_PERCENT) / 100;
+	}
+
+	public static double calculateIncomeAfterSocialContributions(double income) {
+		return income
+				- calculatePensionContribution(income)
+				- calculateDisabilityContribution(income)
+				- calculateSicknessContribution(income);
 	}
 
 	public static double calculateHealthContributionFull(double income) {

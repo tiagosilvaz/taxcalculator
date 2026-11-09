@@ -63,3 +63,7 @@ Now it only returns the result; the caller stores it.
 **14. Lines 149-152:** `calculateOtherTaxes` calculated two values and wrote them into fields (side effect).
 Split into `calculateHealthContributionFull` and `calculateHealthContributionDeductible`, each one returns its result.
 *Rule: Have no side effects, Do one thing.*
+
+**15. Lines 142-147:** `calculateIncome` calculated three contributions, wrote them into fields and also returned the income after contributions (side effect and return value mixed).
+Split into `calculatePensionContribution`, `calculateDisabilityContribution`, `calculateSicknessContribution` and `calculateIncomeAfterSocialContributions`, each one returns its result.
+*Rule: Have no side effects, Do one thing.*

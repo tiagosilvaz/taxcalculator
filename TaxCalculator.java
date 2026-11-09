@@ -15,9 +15,30 @@ public class TaxCalculator {
 	private static final double EMPLOYMENT_DEDUCTIBLE_EXPENSES = 111.25;
 	private static final double EMPLOYMENT_TAX_FREE_INCOME = 46.33;
 
+	private enum ContractType {
+		EMPLOYMENT('E'),
+		CIVIL('C'),
+		UNKNOWN(' ');
+
+		private final char code;
+
+		ContractType(char code) {
+			this.code = code;
+		}
+
+		public static ContractType fromCode(char code) {
+			for (ContractType type : values()) {
+				if (type.code == code) {
+					return type;
+				}
+			}
+			return UNKNOWN;
+		}
+	}
+
 	public static void main(String[] args) {
 		double income = 0;
-		char contractType = ' ';
+		char contractCode = ' ';
 		try {
 			InputStreamReader inputStreamReader = new InputStreamReader(System.in);
 			BufferedReader inputReader = new BufferedReader(inputStreamReader);
@@ -26,7 +47,7 @@ public class TaxCalculator {
 			income = Double.parseDouble(inputReader.readLine());
 
 			System.out.print("Contract Type: (E)mployment, (C)ivil: ");
-			contractType = inputReader.readLine().charAt(0);
+			contractCode = inputReader.readLine().charAt(0);
 
 		} catch (Exception ex) {
 			System.out.println("Incorrect");
@@ -37,12 +58,15 @@ public class TaxCalculator {
 		DecimalFormat twoDecimalsFormat = new DecimalFormat("#.00");
 		DecimalFormat wholeNumberFormat = new DecimalFormat("#");
 
-		if (contractType == 'E') {
-			printEmploymentSummary(income, twoDecimalsFormat, wholeNumberFormat);
-		} else if (contractType == 'C') {
-			printCivilSummary(income, twoDecimalsFormat, wholeNumberFormat);
-		} else {
-			System.out.println("Unknown type of contract!");
+		switch (ContractType.fromCode(contractCode)) {
+			case EMPLOYMENT:
+				printEmploymentSummary(income, twoDecimalsFormat, wholeNumberFormat);
+				break;
+			case CIVIL:
+				printCivilSummary(income, twoDecimalsFormat, wholeNumberFormat);
+				break;
+			default:
+				System.out.println("Unknown type of contract!");
 		}
 	}
 

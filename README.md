@@ -87,3 +87,7 @@ Renamed to `taxedIncomeRounded`.
 **20. Lines 56-58, 62-65, 85-87, 97-99, 104-108, 126-128:** inconsistent formatting: `println` calls split over several lines (`System.out` alone, `);` alone), spaces before `;` and double spaces before `=`.
 Joined the split calls into one line and removed the extra spaces. The printed texts were not changed.
 *Rule: Be consistent, Follow standard conventions.*
+
+**21. Lines 10, 34, 45, 88:** the contract type was a `char` with the magic values `'E'` and `'C'`, so any letter was accepted by the compiler.
+Replaced by the enum `ContractType` (`EMPLOYMENT`, `CIVIL`, `UNKNOWN`) and a `switch` in `main`. Unknown letters still print the same message.
+*Rule: Prefer dedicated value objects to primitive type.*

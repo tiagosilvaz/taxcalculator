@@ -51,3 +51,7 @@ Removed. The rates are now in named constants, and the variable names explain th
 Renamed to `pensionContribution` (9.76%), `disabilityContribution` (1.5%), `sicknessContribution` (2.45%), and the same for the rate constants.
 The printed texts (for example "Health social security tax") were left unchanged to keep the program output the same.
 *Rule: Make meaningful distinction, Choose descriptive and unambiguous names.*
+
+**12. Method `calculateAdvanceTax`:** it had no parameters and read three fields, and wrote its result into a field (side effect).
+Now it receives the values as parameters and returns the result.
+*Rule: Have no side effects, Prefer fewer arguments only when they are hidden inputs.*

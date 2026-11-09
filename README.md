@@ -30,7 +30,15 @@ Moved into `main` as local variables.
 **6. Lines 12-14:** `soc_security`, `soc_health_security`, `soc_sick_security` use snake_case and the unclear abbreviation `soc`.
 Renamed to `socialSecurity`, `socialHealthSecurity`, `socialSickSecurity`.
 
-**7. Line 48:** `d_income` is assigned but never used.
-Removed the variable; the call to `calculateIncome(income)` is kept because it sets the social contribution fields.
+**7. Line 48:** the variable `d_income` is assigned but never used.
+Removed the variable but kept the call `calculateIncome(income)`, because that method also fills the social contribution fields that are printed later.
+*Rule: Needless complexity.*
 
-**8. Line 115:** local variable `advanceTax` in branch `'C'` is declared but never used. Removed.
+**8. Line 115:** in the `'C'` branch there was a local variable `advanceTax` that was never used and hid the field with the same name.
+Removed.
+*Rule: Needless complexity.*
+
+**9. Lines 16, 20, 104 and the `calculate...` methods:** the code had magic numbers (tax rates such as `9.76`, `18`, `20`, and the values `111.25` and `46.33`), so it was not clear what they mean.
+Replaced them with named constants, for example `ADVANCE_TAX_RATE_PERCENT` and `EMPLOYMENT_TAX_FREE_INCOME`.
+`taxDeductibleExpenses` and `taxFreeIncome` are still normal fields, because the `'C'` branch changes them. They are only initialized with the constants now.
+*Rule: Replace magic numbers with named constants.*

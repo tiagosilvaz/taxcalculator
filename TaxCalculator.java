@@ -5,19 +5,27 @@ import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 
 public class TaxCalculator {
+	private static final double SOCIAL_SECURITY_RATE_PERCENT = 9.76;
+	private static final double SOCIAL_HEALTH_SECURITY_RATE_PERCENT = 1.5;
+	private static final double SOCIAL_SICK_SECURITY_RATE_PERCENT = 2.45;
+	private static final double HEALTH_CONTRIBUTION_FULL_RATE_PERCENT = 9;
+	private static final double HEALTH_CONTRIBUTION_DEDUCTIBLE_RATE_PERCENT = 7.75;
+	private static final double ADVANCE_TAX_RATE_PERCENT = 18;
+	private static final double CIVIL_DEDUCTIBLE_EXPENSES_RATE_PERCENT = 20;
+	private static final double EMPLOYMENT_DEDUCTIBLE_EXPENSES = 111.25;
+	private static final double EMPLOYMENT_TAX_FREE_INCOME = 46.33;
 	// social security taxes
 	public static double socialSecurity = 0; // 9,76% of basis
 	public static double socialHealthSecurity = 0; // 1,5% of basis
 	public static double socialSickSecurity = 0; // 2,45% of basis
 	// health-related taxes
-	public static double taxDeductibleExpenses = 111.25;
+	public static double taxDeductibleExpenses = EMPLOYMENT_DEDUCTIBLE_EXPENSES;
 	public static double healthContributionFull = 0; // of basis up to 9%
     public static double healthContributionDeductible = 0; // of basis up to  7,75 %
     public static double advanceTax = 0;
     public static double advanceTaxPaid = 0; // advance tax 18%
     public static double advanceTaxPaidRounded = 0; // advance tax 18%
-    public static double taxFreeIncome = 46.33; // tax-free income monthly 46,33 PLN
-
+    public static double taxFreeIncome = EMPLOYMENT_TAX_FREE_INCOME;
 
 	public static void main(String[] args) {
 		double income = 0;
@@ -100,7 +108,7 @@ public class TaxCalculator {
 			System.out.println("Health security tax: 9% = "
 					+ twoDecimalsFormat.format(healthContributionFull) + " 7,75% = " + twoDecimalsFormat.format(healthContributionDeductible));
 			taxFreeIncome = 0;
-			taxDeductibleExpenses  = (incomeAfterSocialContributions * 20) / 100;
+			taxDeductibleExpenses  = (incomeAfterSocialContributions * CIVIL_DEDUCTIBLE_EXPENSES_RATE_PERCENT) / 100;
 			System.out.println("Tax deductible expenses = "
 					+ taxDeductibleExpenses
 			);
@@ -135,18 +143,18 @@ public class TaxCalculator {
 	}
 
 	public static void calculateTax(double income) {
-		advanceTax = (income * 18) / 100;
+		advanceTax = (income * ADVANCE_TAX_RATE_PERCENT) / 100;
 	}
 
 	public static double calculateIncome(double income) {
-		socialSecurity = (income * 9.76) / 100;
-		socialHealthSecurity = (income * 1.5) / 100;
-		socialSickSecurity = (income * 2.45) / 100;
+		socialSecurity = (income * SOCIAL_SECURITY_RATE_PERCENT) / 100;
+		socialHealthSecurity = (income * SOCIAL_HEALTH_SECURITY_RATE_PERCENT) / 100;
+		socialSickSecurity = (income * SOCIAL_SICK_SECURITY_RATE_PERCENT) / 100;
 		return (income - socialSecurity - socialHealthSecurity - socialSickSecurity);
 	}
 
 	public static void calculateOtherTaxes(double income) {
-		healthContributionFull = (income * 9) / 100;
-		healthContributionDeductible = (income * 7.75) / 100;
+		healthContributionFull = (income * HEALTH_CONTRIBUTION_FULL_RATE_PERCENT) / 100;
+		healthContributionDeductible = (income * HEALTH_CONTRIBUTION_DEDUCTIBLE_RATE_PERCENT) / 100;
 	}
 }

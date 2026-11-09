@@ -120,6 +120,10 @@ Made them constants of the class (`TWO_DECIMALS_FORMAT`, `WHOLE_NUMBER_FORMAT`).
 Each print method now calculates everything first and prints afterwards, in the same order as before. The output is the same.
 *Rule: Separate concepts vertically, Declare variables close to their usage.*
 
+**29. Lines 45-131:** the code of each contract type was in a `static` method that received the income as an argument.
+Moved each one to its own class (`EmploymentContract`, `CivilContract`) with the income as a field and a `printSummary()` method. The code inside was not changed.
+*Rule: Prefer non-static methods to static methods, Prefer fewer arguments.*
+
 ## Not changed
 
 - `printEmploymentSummary` and `printCivilSummary` still calculate and print in the same method, and have a similar structure. Separating them would mean rebuilding the output order and the risk of changing the program output was too high for this exercise.

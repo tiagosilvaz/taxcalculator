@@ -67,3 +67,7 @@ Split into `calculateHealthContributionFull` and `calculateHealthContributionDed
 **15. Lines 142-147:** `calculateIncome` calculated three contributions, wrote them into fields and also returned the income after contributions (side effect and return value mixed).
 Split into `calculatePensionContribution`, `calculateDisabilityContribution`, `calculateSicknessContribution` and `calculateIncomeAfterSocialContributions`, each one returns its result.
 *Rule: Have no side effects, Do one thing.*
+
+**16. Lines 9-22 (fields):** after the `calculate...` methods stopped writing into fields, the `static` fields were only global state used by `main`.
+Replaced them with local variables inside each branch of `main` and removed the fields. `taxDeductibleExpenses` and `taxFreeIncome` are now local to each branch, so branch `'C'` no longer changes shared values.
+*Rule: Small number of instance variables, Prefer non-static methods to static methods.*

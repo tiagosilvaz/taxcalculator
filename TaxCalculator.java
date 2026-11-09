@@ -62,7 +62,8 @@ public class TaxCalculator {
 			System.out
 					.println("Income basis for health social security: "
 							+ income);
-			calculateOtherTaxes(income);
+			healthContributionFull = calculateHealthContributionFull(income);
+			healthContributionDeductible = calculateHealthContributionDeductible(income);
 			System.out.println("Health social security tax: 9% = "
 					+ twoDecimalsFormat.format(healthContributionFull) + " 7,75% = " + twoDecimalsFormat.format(healthContributionDeductible));
 			System.out.println("Tax deductible expenses "
@@ -103,7 +104,8 @@ public class TaxCalculator {
 			System.out
 					.println("Income for calculating health security tax: "
 							+ incomeAfterSocialContributions);
-			calculateOtherTaxes(incomeAfterSocialContributions);
+			healthContributionFull = calculateHealthContributionFull(incomeAfterSocialContributions);
+			healthContributionDeductible = calculateHealthContributionDeductible(incomeAfterSocialContributions);
 			System.out.println("Health security tax: 9% = "
 					+ twoDecimalsFormat.format(healthContributionFull) + " 7,75% = " + twoDecimalsFormat.format(healthContributionDeductible));
 			taxFreeIncome = 0;
@@ -152,8 +154,11 @@ public class TaxCalculator {
 		return (income - pensionContribution - disabilityContribution - sicknessContribution);
 	}
 
-	public static void calculateOtherTaxes(double income) {
-		healthContributionFull = (income * HEALTH_CONTRIBUTION_FULL_RATE_PERCENT) / 100;
-		healthContributionDeductible = (income * HEALTH_CONTRIBUTION_DEDUCTIBLE_RATE_PERCENT) / 100;
+	public static double calculateHealthContributionFull(double income) {
+		return (income * HEALTH_CONTRIBUTION_FULL_RATE_PERCENT) / 100;
+	}
+
+	public static double calculateHealthContributionDeductible(double income) {
+		return (income * HEALTH_CONTRIBUTION_DEDUCTIBLE_RATE_PERCENT) / 100;
 	}
 }

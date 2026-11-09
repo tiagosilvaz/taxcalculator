@@ -59,3 +59,7 @@ Now it receives the values as parameters and returns the result.
 **13. Method `calculateTax`:** it wrote its result into a field instead of returning it.
 Now it only returns the result; the caller stores it.
 *Rule: Have no side effects.*
+
+**14. Lines 149-152:** `calculateOtherTaxes` calculated two values and wrote them into fields (side effect).
+Split into `calculateHealthContributionFull` and `calculateHealthContributionDeductible`, each one returns its result.
+*Rule: Have no side effects, Do one thing.*

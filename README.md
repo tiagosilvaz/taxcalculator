@@ -128,6 +128,10 @@ Moved each one to its own class (`EmploymentContract`, `CivilContract`) with the
 Moved each calculation to its own small method (`taxedIncome`, `taxedIncomeRounded`, `advanceTax`, `advanceTaxPaid`, `netIncome`, ...). `printSummary` now only prints. In `CivilContract`, `taxFreeIncome = 0` and `taxPaid = 0` became constants of the class.
 *Rule: Small, Do one thing.*
 
+**31. Lines 61, 83, 102, 124:** some lines had more than 130 characters (for example the `println` of the health contributions and the net income formula), so they were hard to read.
+Split them into several lines. The code was not changed. The same was done to the lines created by the previous changes.
+*Rule: Keep lines short.*
+
 ## Not changed
 
 - `printSummary` in `EmploymentContract` and `CivilContract` still calculates and prints in the same method, and the two have a similar structure.

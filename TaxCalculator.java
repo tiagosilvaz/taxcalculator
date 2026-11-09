@@ -78,7 +78,8 @@ public class TaxCalculator {
 		return (value * ratePercent) / 100;
 	}
 
-	public static double calculateAdvanceTaxPaid(double advanceTax, double healthContributionDeductible, double taxFreeIncome) {
+	public static double calculateAdvanceTaxPaid(
+			double advanceTax, double healthContributionDeductible, double taxFreeIncome) {
 		return advanceTax - healthContributionDeductible - taxFreeIncome;
 	}
 
@@ -119,7 +120,8 @@ public class TaxCalculator {
 		return percentOf(income, HEALTH_CONTRIBUTION_DEDUCTIBLE_RATE_PERCENT);
 	}
 
-	public static double calculateNetIncome(double incomeBase, double socialContributions, double healthContributionFull, double advanceTaxPaidRounded) {
+	public static double calculateNetIncome(
+			double incomeBase, double socialContributions, double healthContributionFull, double advanceTaxPaidRounded) {
 		return incomeBase - (socialContributions + healthContributionFull + advanceTaxPaidRounded);
 	}
 
@@ -151,7 +153,8 @@ public class TaxCalculator {
 		}
 
 		private double advanceTaxPaid() {
-			return calculateAdvanceTaxPaid(advanceTax(), calculateHealthContributionDeductible(income), EMPLOYMENT_TAX_FREE_INCOME);
+			return calculateAdvanceTaxPaid(
+					advanceTax(), calculateHealthContributionDeductible(income), EMPLOYMENT_TAX_FREE_INCOME);
 		}
 
 		private double advanceTaxPaidRounded() {
@@ -159,7 +162,11 @@ public class TaxCalculator {
 		}
 
 		private double netIncome() {
-			return calculateNetIncome(income, calculateSocialContributionsTotal(income), calculateHealthContributionFull(income), advanceTaxPaidRounded());
+			return calculateNetIncome(
+					income,
+					calculateSocialContributionsTotal(income),
+					calculateHealthContributionFull(income),
+					advanceTaxPaidRounded());
 		}
 
 		void printSummary() {
@@ -174,7 +181,9 @@ public class TaxCalculator {
 			System.out.println("Income basis for health social security: "
 					+ income);
 			System.out.println("Health social security tax: 9% = "
-					+ TWO_DECIMALS_FORMAT.format(calculateHealthContributionFull(income)) + " 7,75% = " + TWO_DECIMALS_FORMAT.format(calculateHealthContributionDeductible(income)));
+					+ TWO_DECIMALS_FORMAT.format(calculateHealthContributionFull(income))
+					+ " 7,75% = "
+					+ TWO_DECIMALS_FORMAT.format(calculateHealthContributionDeductible(income)));
 			System.out.println("Tax deductible expenses "
 					+ EMPLOYMENT_DEDUCTIBLE_EXPENSES);
 			System.out.println("income " + taxedIncome()
@@ -240,7 +249,11 @@ public class TaxCalculator {
 		}
 
 		private double netIncome() {
-			return calculateNetIncome(incomeAfterSocialContributions(), calculateSocialContributionsTotal(income), healthContributionFull(), advanceTaxPaidRounded());
+			return calculateNetIncome(
+					incomeAfterSocialContributions(),
+					calculateSocialContributionsTotal(income),
+					healthContributionFull(),
+					advanceTaxPaidRounded());
 		}
 
 		void printSummary() {
@@ -254,7 +267,9 @@ public class TaxCalculator {
 			System.out.println("Income for calculating health security tax: "
 					+ incomeAfterSocialContributions());
 			System.out.println("Health security tax: 9% = "
-					+ TWO_DECIMALS_FORMAT.format(healthContributionFull()) + " 7,75% = " + TWO_DECIMALS_FORMAT.format(healthContributionDeductible()));
+					+ TWO_DECIMALS_FORMAT.format(healthContributionFull())
+					+ " 7,75% = "
+					+ TWO_DECIMALS_FORMAT.format(healthContributionDeductible()));
 			System.out.println("Tax deductible expenses = "
 					+ taxDeductibleExpenses());
 			System.out.println("income to be taxed = " + taxedIncome()

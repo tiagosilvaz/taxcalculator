@@ -14,18 +14,17 @@ public class TaxCalculator {
 	private static final double CIVIL_DEDUCTIBLE_EXPENSES_RATE_PERCENT = 20;
 	private static final double EMPLOYMENT_DEDUCTIBLE_EXPENSES = 111.25;
 	private static final double EMPLOYMENT_TAX_FREE_INCOME = 46.33;
-	// social security taxes
-	public static double socialSecurity = 0; // 9,76% of basis
-	public static double socialHealthSecurity = 0; // 1,5% of basis
-	public static double socialSickSecurity = 0; // 2,45% of basis
-	// health-related taxes
+	public static double socialSecurity = 0;
+	public static double socialHealthSecurity = 0;
+	public static double socialSickSecurity = 0;
 	public static double taxDeductibleExpenses = EMPLOYMENT_DEDUCTIBLE_EXPENSES;
-	public static double healthContributionFull = 0; // of basis up to 9%
-    public static double healthContributionDeductible = 0; // of basis up to  7,75 %
-    public static double advanceTax = 0;
-    public static double advanceTaxPaid = 0; // advance tax 18%
-    public static double advanceTaxPaidRounded = 0; // advance tax 18%
-    public static double taxFreeIncome = EMPLOYMENT_TAX_FREE_INCOME;
+	public static double advanceTax = 0;
+	public static double advanceTaxPaid = 0;
+	public static double advanceTaxPaidRounded = 0;
+	public static double taxFreeIncome = EMPLOYMENT_TAX_FREE_INCOME;
+	public static double healthContributionFull = 0;
+	public static double healthContributionDeductible = 0;
+
 
 	public static void main(String[] args) {
 		double income = 0;
@@ -119,7 +118,7 @@ public class TaxCalculator {
 			calculateTax(taxedIncome0);
 			System.out.println("Advance tax 18 % = "
 					+ advanceTax);
-            double taxPaid = 0;
+			double taxPaid = 0;
 			System.out.println("Already paid tax = "
 					+ twoDecimalsFormat.format(taxPaid));
 			calculateAdvanceTax();

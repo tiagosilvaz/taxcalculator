@@ -42,3 +42,7 @@ Removed.
 Replaced them with named constants, for example `ADVANCE_TAX_RATE_PERCENT` and `EMPLOYMENT_TAX_FREE_INCOME`.
 `taxDeductibleExpenses` and `taxFreeIncome` are still normal fields, because the `'C'` branch changes them. They are only initialized with the constants now.
 *Rule: Replace magic numbers with named constants.*
+
+**10. Lines 11, 12-14, 15, 17-20:** comments that repeat the code or are misleading (`// health-related taxes` was above variables that are not about health, and `= 0; // ... 9%` looked contradictory).
+Removed. The rates are now in named constants, and the variable names explain the rest.
+*Rule: Don't be redundant, Always try to explain yourself in code.*

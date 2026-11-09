@@ -134,7 +134,6 @@ Split them into several lines. The code was not changed. The same was done to th
 
 ## Not changed
 
-- `printSummary` in `EmploymentContract` and `CivilContract` still calculates and prints in the same method, and the two have a similar structure.
 - `main` still chooses the contract with a `switch` on `ContractType`. Replacing it with polymorphism was possible, but it adds more types for a `switch` with only three cases.
 - The `catch (Exception)` in `main` was kept to keep the same behavior (see 22).
 - Printed texts were not changed (for example "Health social security tax" prints the disability value, see 11).

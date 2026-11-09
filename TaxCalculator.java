@@ -134,101 +134,141 @@ public class TaxCalculator {
 			this.income = income;
 		}
 
-		void printSummary() {
-			double taxDeductibleExpenses = EMPLOYMENT_DEDUCTIBLE_EXPENSES;
-			double taxFreeIncome = EMPLOYMENT_TAX_FREE_INCOME;
-			double pensionContribution = calculatePensionContribution(income);
-			double disabilityContribution = calculateDisabilityContribution(income);
-			double sicknessContribution = calculateSicknessContribution(income);
-			double healthContributionFull = calculateHealthContributionFull(income);
-			double healthContributionDeductible = calculateHealthContributionDeductible(income);
-			double taxedIncome = income - taxDeductibleExpenses;
-			double taxedIncomeRounded = roundToWholeNumber(taxedIncome);
-			double advanceTax = calculateAdvanceTax(taxedIncomeRounded);
-			double taxPaid = advanceTax - taxFreeIncome;
-			double advanceTaxPaid = calculateAdvanceTaxPaid(advanceTax, healthContributionDeductible, taxFreeIncome);
-			double advanceTaxPaidRounded = roundToWholeNumber(advanceTaxPaid);
-			double netIncome = calculateNetIncome(income, calculateSocialContributionsTotal(income), healthContributionFull, advanceTaxPaidRounded);
+		private double taxedIncome() {
+			return income - EMPLOYMENT_DEDUCTIBLE_EXPENSES;
+		}
 
+		private double taxedIncomeRounded() {
+			return roundToWholeNumber(taxedIncome());
+		}
+
+		private double advanceTax() {
+			return calculateAdvanceTax(taxedIncomeRounded());
+		}
+
+		private double taxPaid() {
+			return advanceTax() - EMPLOYMENT_TAX_FREE_INCOME;
+		}
+
+		private double advanceTaxPaid() {
+			return calculateAdvanceTaxPaid(advanceTax(), calculateHealthContributionDeductible(income), EMPLOYMENT_TAX_FREE_INCOME);
+		}
+
+		private double advanceTaxPaidRounded() {
+			return roundToWholeNumber(advanceTaxPaid());
+		}
+
+		private double netIncome() {
+			return calculateNetIncome(income, calculateSocialContributionsTotal(income), calculateHealthContributionFull(income), advanceTaxPaidRounded());
+		}
+
+		void printSummary() {
 			System.out.println("EMPLOYMENT");
 			System.out.println("Income " + income);
 			System.out.println("Social security tax "
-					+ TWO_DECIMALS_FORMAT.format(pensionContribution));
+					+ TWO_DECIMALS_FORMAT.format(calculatePensionContribution(income)));
 			System.out.println("Health social security tax    "
-					+ TWO_DECIMALS_FORMAT.format(disabilityContribution));
+					+ TWO_DECIMALS_FORMAT.format(calculateDisabilityContribution(income)));
 			System.out.println("Sickness social security tax  "
-					+ TWO_DECIMALS_FORMAT.format(sicknessContribution));
+					+ TWO_DECIMALS_FORMAT.format(calculateSicknessContribution(income)));
 			System.out.println("Income basis for health social security: "
 					+ income);
 			System.out.println("Health social security tax: 9% = "
-					+ TWO_DECIMALS_FORMAT.format(healthContributionFull) + " 7,75% = " + TWO_DECIMALS_FORMAT.format(healthContributionDeductible));
+					+ TWO_DECIMALS_FORMAT.format(calculateHealthContributionFull(income)) + " 7,75% = " + TWO_DECIMALS_FORMAT.format(calculateHealthContributionDeductible(income)));
 			System.out.println("Tax deductible expenses "
-					+ taxDeductibleExpenses);
-			System.out.println("income " + taxedIncome
-					+ " rounded " + WHOLE_NUMBER_FORMAT.format(taxedIncomeRounded));
+					+ EMPLOYMENT_DEDUCTIBLE_EXPENSES);
+			System.out.println("income " + taxedIncome()
+					+ " rounded " + WHOLE_NUMBER_FORMAT.format(taxedIncomeRounded()));
 			System.out.println("Advance tax 18 % = "
-					+ advanceTax);
-			System.out.println("Tax free income = " + taxFreeIncome);
+					+ advanceTax());
+			System.out.println("Tax free income = " + EMPLOYMENT_TAX_FREE_INCOME);
 			System.out.println("Reduced tax = "
-					+ TWO_DECIMALS_FORMAT.format(taxPaid));
+					+ TWO_DECIMALS_FORMAT.format(taxPaid()));
 			System.out.println("Advance tax paid = "
-					+ TWO_DECIMALS_FORMAT.format(advanceTaxPaid) + " rounded = "
-					+ WHOLE_NUMBER_FORMAT.format(advanceTaxPaidRounded));
+					+ TWO_DECIMALS_FORMAT.format(advanceTaxPaid()) + " rounded = "
+					+ WHOLE_NUMBER_FORMAT.format(advanceTaxPaidRounded()));
 			System.out.println();
 			System.out.println("Net income = "
-					+ TWO_DECIMALS_FORMAT.format(netIncome));
+					+ TWO_DECIMALS_FORMAT.format(netIncome()));
 		}
 	}
 
 	private static class CivilContract {
+		private static final double TAX_FREE_INCOME = 0;
+		private static final double TAX_ALREADY_PAID = 0;
+
 		private final double income;
 
 		CivilContract(double income) {
 			this.income = income;
 		}
 
-		void printSummary() {
-			double pensionContribution = calculatePensionContribution(income);
-			double disabilityContribution = calculateDisabilityContribution(income);
-			double sicknessContribution = calculateSicknessContribution(income);
-			double incomeAfterSocialContributions = calculateIncomeAfterSocialContributions(income);
-			double healthContributionFull = calculateHealthContributionFull(incomeAfterSocialContributions);
-			double healthContributionDeductible = calculateHealthContributionDeductible(incomeAfterSocialContributions);
-			double taxFreeIncome = 0;
-			double taxDeductibleExpenses = percentOf(incomeAfterSocialContributions, CIVIL_DEDUCTIBLE_EXPENSES_RATE_PERCENT);
-			double taxedIncome = incomeAfterSocialContributions - taxDeductibleExpenses;
-			double taxedIncomeRounded = roundToWholeNumber(taxedIncome);
-			double advanceTax = calculateAdvanceTax(taxedIncomeRounded);
-			double taxPaid = 0;
-			double advanceTaxPaid = calculateAdvanceTaxPaid(advanceTax, healthContributionDeductible, taxFreeIncome);
-			double advanceTaxPaidRounded = roundToWholeNumber(advanceTaxPaid);
-			double netIncome = calculateNetIncome(incomeAfterSocialContributions, calculateSocialContributionsTotal(income), healthContributionFull, advanceTaxPaidRounded);
+		private double incomeAfterSocialContributions() {
+			return calculateIncomeAfterSocialContributions(income);
+		}
 
+		private double healthContributionFull() {
+			return calculateHealthContributionFull(incomeAfterSocialContributions());
+		}
+
+		private double healthContributionDeductible() {
+			return calculateHealthContributionDeductible(incomeAfterSocialContributions());
+		}
+
+		private double taxDeductibleExpenses() {
+			return percentOf(incomeAfterSocialContributions(), CIVIL_DEDUCTIBLE_EXPENSES_RATE_PERCENT);
+		}
+
+		private double taxedIncome() {
+			return incomeAfterSocialContributions() - taxDeductibleExpenses();
+		}
+
+		private double taxedIncomeRounded() {
+			return roundToWholeNumber(taxedIncome());
+		}
+
+		private double advanceTax() {
+			return calculateAdvanceTax(taxedIncomeRounded());
+		}
+
+		private double advanceTaxPaid() {
+			return calculateAdvanceTaxPaid(advanceTax(), healthContributionDeductible(), TAX_FREE_INCOME);
+		}
+
+		private double advanceTaxPaidRounded() {
+			return roundToWholeNumber(advanceTaxPaid());
+		}
+
+		private double netIncome() {
+			return calculateNetIncome(incomeAfterSocialContributions(), calculateSocialContributionsTotal(income), healthContributionFull(), advanceTaxPaidRounded());
+		}
+
+		void printSummary() {
 			System.out.println("income " + income);
 			System.out.println("Social security tax = "
-					+ TWO_DECIMALS_FORMAT.format(pensionContribution));
+					+ TWO_DECIMALS_FORMAT.format(calculatePensionContribution(income)));
 			System.out.println("Health social security tax = "
-					+ TWO_DECIMALS_FORMAT.format(disabilityContribution));
+					+ TWO_DECIMALS_FORMAT.format(calculateDisabilityContribution(income)));
 			System.out.println("Sickness social security tax = "
-					+ TWO_DECIMALS_FORMAT.format(sicknessContribution));
+					+ TWO_DECIMALS_FORMAT.format(calculateSicknessContribution(income)));
 			System.out.println("Income for calculating health security tax: "
-					+ incomeAfterSocialContributions);
+					+ incomeAfterSocialContributions());
 			System.out.println("Health security tax: 9% = "
-					+ TWO_DECIMALS_FORMAT.format(healthContributionFull) + " 7,75% = " + TWO_DECIMALS_FORMAT.format(healthContributionDeductible));
+					+ TWO_DECIMALS_FORMAT.format(healthContributionFull()) + " 7,75% = " + TWO_DECIMALS_FORMAT.format(healthContributionDeductible()));
 			System.out.println("Tax deductible expenses = "
-					+ taxDeductibleExpenses);
-			System.out.println("income to be taxed = " + taxedIncome
-					+ " rounded = " + WHOLE_NUMBER_FORMAT.format(taxedIncomeRounded));
+					+ taxDeductibleExpenses());
+			System.out.println("income to be taxed = " + taxedIncome()
+					+ " rounded = " + WHOLE_NUMBER_FORMAT.format(taxedIncomeRounded()));
 			System.out.println("Advance tax 18 % = "
-					+ advanceTax);
+					+ advanceTax());
 			System.out.println("Already paid tax = "
-					+ TWO_DECIMALS_FORMAT.format(taxPaid));
+					+ TWO_DECIMALS_FORMAT.format(TAX_ALREADY_PAID));
 			System.out.println("Advance tax  = "
-					+ TWO_DECIMALS_FORMAT.format(advanceTaxPaid) + " rounded = "
-					+ WHOLE_NUMBER_FORMAT.format(advanceTaxPaidRounded));
+					+ TWO_DECIMALS_FORMAT.format(advanceTaxPaid()) + " rounded = "
+					+ WHOLE_NUMBER_FORMAT.format(advanceTaxPaidRounded()));
 			System.out.println();
 			System.out.println("Net income = "
-					+ TWO_DECIMALS_FORMAT.format(netIncome));
+					+ TWO_DECIMALS_FORMAT.format(netIncome()));
 		}
 	}
 }

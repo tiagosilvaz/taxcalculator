@@ -124,8 +124,13 @@ Each print method now calculates everything first and prints afterwards, in the 
 Moved each one to its own class (`EmploymentContract`, `CivilContract`) with the income as a field and a `printSummary()` method. The code inside was not changed.
 *Rule: Prefer non-static methods to static methods, Prefer fewer arguments.*
 
+**30. Lines 46-87 and 89-128:** `printSummary` in each contract class still calculated about 13 values before printing them, so it was long and did two things.
+Moved each calculation to its own small method (`taxedIncome`, `taxedIncomeRounded`, `advanceTax`, `advanceTaxPaid`, `netIncome`, ...). `printSummary` now only prints. In `CivilContract`, `taxFreeIncome = 0` and `taxPaid = 0` became constants of the class.
+*Rule: Small, Do one thing.*
+
 ## Not changed
 
-- `printEmploymentSummary` and `printCivilSummary` still calculate and print in the same method, and have a similar structure. Separating them would mean rebuilding the output order and the risk of changing the program output was too high for this exercise.
+- `printSummary` in `EmploymentContract` and `CivilContract` still calculates and prints in the same method, and the two have a similar structure.
+- `main` still chooses the contract with a `switch` on `ContractType`. Replacing it with polymorphism was possible, but it adds more types for a `switch` with only three cases.
 - The `catch (Exception)` in `main` was kept to keep the same behavior (see 22).
 - Printed texts were not changed (for example "Health social security tax" prints the disability value, see 11).

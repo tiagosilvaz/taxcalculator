@@ -110,6 +110,10 @@ public class TaxCalculator {
 		return (income * HEALTH_CONTRIBUTION_DEDUCTIBLE_RATE_PERCENT) / 100;
 	}
 
+	public static double calculateNetIncome(double incomeBase, double socialContributions, double healthContributionFull, double advanceTaxPaidRounded) {
+		return incomeBase - (socialContributions + healthContributionFull + advanceTaxPaidRounded);
+	}
+
 	public static double roundToWholeNumber(double value) {
 		return Double.parseDouble(new DecimalFormat("#").format(value));
 	}
@@ -153,8 +157,7 @@ public class TaxCalculator {
 		System.out.println("Advance tax paid = "
 				+ twoDecimalsFormat.format(advanceTaxPaid) + " rounded = "
 				+ wholeNumberFormat.format(advanceTaxPaidRounded));
-		double netIncome = income
-				- ((pensionContribution + disabilityContribution + sicknessContribution) + healthContributionFull + advanceTaxPaidRounded);
+		double netIncome = calculateNetIncome(income, pensionContribution + disabilityContribution + sicknessContribution, healthContributionFull, advanceTaxPaidRounded);
 		System.out.println();
 		System.out.println("Net income = "
 				+ twoDecimalsFormat.format(netIncome));
@@ -197,8 +200,7 @@ public class TaxCalculator {
 		System.out.println("Advance tax  = "
 				+ twoDecimalsFormat.format(advanceTaxPaid) + " rounded = "
 				+ wholeNumberFormat.format(advanceTaxPaidRounded));
-		double netIncome = incomeAfterSocialContributions
-				- ((pensionContribution + disabilityContribution + sicknessContribution) + healthContributionFull + advanceTaxPaidRounded);
+		double netIncome = calculateNetIncome(incomeAfterSocialContributions, pensionContribution + disabilityContribution + sicknessContribution, healthContributionFull, advanceTaxPaidRounded);
 		System.out.println();
 		System.out.println("Net income = "
 				+ twoDecimalsFormat.format(netIncome));

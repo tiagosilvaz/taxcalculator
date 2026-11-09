@@ -95,3 +95,7 @@ Replaced by the enum `ContractType` (`EMPLOYMENT`, `CIVIL`, `UNKNOWN`) and a `sw
 **22. Lines 26-40:** `main` read the input, handled errors and chose the calculation all in one place.
 Moved the reading to `readIncome` and `readContractCode`. The `catch (Exception)` was kept on purpose: it also covers end of input and an empty contract type, and narrowing it would change what the program prints.
 *Rule: Small, Do one thing.*
+
+**23. Lines 82-87 and 123-128:** the net income formula was written twice, once per contract type.
+Moved it to `calculateNetIncome`. The only difference between the two cases (the income used as base) became a parameter.
+*Rule: Needless repetition (DRY).*

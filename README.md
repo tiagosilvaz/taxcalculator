@@ -116,6 +116,10 @@ Renamed to `calculateAdvanceTax(taxedIncome)` and `calculateAdvanceTaxPaid`, the
 Made them constants of the class (`TWO_DECIMALS_FORMAT`, `WHOLE_NUMBER_FORMAT`). `printEmploymentSummary` and `printCivilSummary` now receive only the income, and `roundToWholeNumber` uses the same constant instead of creating a new one every time.
 *Rule: Prefer fewer arguments.*
 
+**28. Lines 46-87 and 89-128:** in both contract types, calculations and `println` calls were mixed line by line.
+Each print method now calculates everything first and prints afterwards, in the same order as before. The output is the same.
+*Rule: Separate concepts vertically, Declare variables close to their usage.*
+
 ## Not changed
 
 - `printEmploymentSummary` and `printCivilSummary` still calculate and print in the same method, and have a similar structure. Separating them would mean rebuilding the output order and the risk of changing the program output was too high for this exercise.

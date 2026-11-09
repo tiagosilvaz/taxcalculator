@@ -54,7 +54,7 @@ The printed texts (for example "Health social security tax") were left unchanged
 
 **12. Lines 134-136, method `calculateAdvanceTax`:** it had no parameters and read three fields, and wrote its result into a field (side effect).
 Now it receives the values as parameters and returns the result.
-*Rule: Have no side effects, Prefer fewer arguments only when they are hidden inputs.*
+*Rule: Have no side effects.*
 
 **13. Lines 138-140, method `calculateTax`:** it wrote its result into a field instead of returning it.
 Now it only returns the result; the caller stores it.
@@ -70,7 +70,7 @@ Split into `calculatePensionContribution`, `calculateDisabilityContribution`, `c
 
 **16. Lines 9-22 (fields):** after the `calculate...` methods stopped writing into fields, the `static` fields were only global state used by `main`.
 Replaced them with local variables inside each branch of `main` and removed the fields. `taxDeductibleExpenses` and `taxFreeIncome` are now local to each branch, so branch `'C'` no longer changes shared values.
-*Rule: Small number of instance variables, Prefer non-static methods to static methods.*
+*Rule: Small number of instance variables.*
 
 **17. Lines 66-67, 78, 109, 119:** the same rounding code `Double.parseDouble(df.format(...))` was repeated four times.
 Extracted to the method `roundToWholeNumber`.
@@ -102,6 +102,10 @@ Moved it to `calculateNetIncome`. The only difference between the two cases (the
 
 **24. Lines 83 and 124:** the sum of the three social contributions (`soc_security + soc_health_security + soc_sick_security`) was written twice.
 Moved it to `calculateSocialContributionsTotal`.
+*Rule: Needless repetition (DRY).*
+
+**25. Lines 104, 139, 143-145, 150-151:** the calculation `(income * rate) / 100` was written seven times.
+Moved it to `percentOf` and used it in all the places.
 *Rule: Needless repetition (DRY).*
 
 ## Not changed

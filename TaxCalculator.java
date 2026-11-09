@@ -75,24 +75,28 @@ public class TaxCalculator {
 		return inputReader.readLine().charAt(0);
 	}
 
+	private static double percentOf(double value, double ratePercent) {
+		return (value * ratePercent) / 100;
+	}
+
 	public static double calculateAdvanceTax(double advanceTax, double healthContributionDeductible, double taxFreeIncome) {
 		return advanceTax - healthContributionDeductible - taxFreeIncome;
 	}
 
 	public static double calculateTax(double income) {
-		return (income * ADVANCE_TAX_RATE_PERCENT) / 100;
+		return percentOf(income, ADVANCE_TAX_RATE_PERCENT);
 	}
 
 	public static double calculatePensionContribution(double income) {
-		return (income * PENSION_RATE_PERCENT) / 100;
+		return percentOf(income, PENSION_RATE_PERCENT);
 	}
 
 	public static double calculateDisabilityContribution(double income) {
-		return (income * DISABILITY_RATE_PERCENT) / 100;
+		return percentOf(income, DISABILITY_RATE_PERCENT);
 	}
 
 	public static double calculateSicknessContribution(double income) {
-		return (income * SICKNESS_RATE_PERCENT) / 100;
+		return percentOf(income, SICKNESS_RATE_PERCENT);
 	}
 
 	public static double calculateIncomeAfterSocialContributions(double income) {
@@ -109,11 +113,11 @@ public class TaxCalculator {
 	}
 
 	public static double calculateHealthContributionFull(double income) {
-		return (income * HEALTH_CONTRIBUTION_FULL_RATE_PERCENT) / 100;
+		return percentOf(income, HEALTH_CONTRIBUTION_FULL_RATE_PERCENT);
 	}
 
 	public static double calculateHealthContributionDeductible(double income) {
-		return (income * HEALTH_CONTRIBUTION_DEDUCTIBLE_RATE_PERCENT) / 100;
+		return percentOf(income, HEALTH_CONTRIBUTION_DEDUCTIBLE_RATE_PERCENT);
 	}
 
 	public static double calculateNetIncome(double incomeBase, double socialContributions, double healthContributionFull, double advanceTaxPaidRounded) {
@@ -188,7 +192,7 @@ public class TaxCalculator {
 		System.out.println("Health security tax: 9% = "
 				+ twoDecimalsFormat.format(healthContributionFull) + " 7,75% = " + twoDecimalsFormat.format(healthContributionDeductible));
 		double taxFreeIncome = 0;
-		double taxDeductibleExpenses = (incomeAfterSocialContributions * CIVIL_DEDUCTIBLE_EXPENSES_RATE_PERCENT) / 100;
+		double taxDeductibleExpenses = percentOf(incomeAfterSocialContributions, CIVIL_DEDUCTIBLE_EXPENSES_RATE_PERCENT);
 		System.out.println("Tax deductible expenses = "
 				+ taxDeductibleExpenses);
 		double taxedIncome = incomeAfterSocialContributions - taxDeductibleExpenses;

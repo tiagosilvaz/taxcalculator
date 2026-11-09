@@ -71,3 +71,7 @@ Split into `calculatePensionContribution`, `calculateDisabilityContribution`, `c
 **16. Lines 9-22 (fields):** after the `calculate...` methods stopped writing into fields, the `static` fields were only global state used by `main`.
 Replaced them with local variables inside each branch of `main` and removed the fields. `taxDeductibleExpenses` and `taxFreeIncome` are now local to each branch, so branch `'C'` no longer changes shared values.
 *Rule: Small number of instance variables, Prefer non-static methods to static methods.*
+
+**17. Lines 66-67, 78, 109, 119:** the same rounding code `Double.parseDouble(df.format(...))` was repeated four times.
+Extracted to the method `roundToWholeNumber`.
+*Rule: Needless repetition.*

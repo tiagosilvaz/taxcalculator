@@ -63,8 +63,7 @@ public class TaxCalculator {
 					+ taxDeductibleExpenses
 			);
 			double taxedIncome = income - taxDeductibleExpenses ;
-			double taxedIncome0 = Double
-					.parseDouble(wholeNumberFormat.format(taxedIncome));
+			double taxedIncome0 = roundToWholeNumber(taxedIncome);
 			System.out.println("income " + taxedIncome
 					+ " rounded " + wholeNumberFormat.format(taxedIncome0));
 			double advanceTax = calculateTax(taxedIncome0);
@@ -75,7 +74,7 @@ public class TaxCalculator {
 			System.out.println("Reduced tax = "
 					+ twoDecimalsFormat.format(taxPaid));
 			double advanceTaxPaid = calculateAdvanceTax(advanceTax, healthContributionDeductible, taxFreeIncome);
-			double advanceTaxPaidRounded = Double.parseDouble(wholeNumberFormat.format(advanceTaxPaid));
+			double advanceTaxPaidRounded = roundToWholeNumber(advanceTaxPaid);
 			System.out.println("Advance tax paid = "
 					+ twoDecimalsFormat.format(advanceTaxPaid) + " rounded = "
 					+ wholeNumberFormat.format(advanceTaxPaidRounded));
@@ -110,7 +109,7 @@ public class TaxCalculator {
 					+ taxDeductibleExpenses
 			);
 			double taxedIncome = incomeAfterSocialContributions - taxDeductibleExpenses ;
-			double taxedIncome0 = Double.parseDouble(wholeNumberFormat.format(taxedIncome));
+			double taxedIncome0 = roundToWholeNumber(taxedIncome);
 			System.out.println("income to be taxed = " + taxedIncome
 					+ " rounded = " + wholeNumberFormat.format(taxedIncome0));
 			double advanceTax = calculateTax(taxedIncome0);
@@ -120,7 +119,7 @@ public class TaxCalculator {
 			System.out.println("Already paid tax = "
 					+ twoDecimalsFormat.format(taxPaid));
 			double advanceTaxPaid = calculateAdvanceTax(advanceTax, healthContributionDeductible, taxFreeIncome);
-			double advanceTaxPaidRounded = Double.parseDouble(wholeNumberFormat.format(advanceTaxPaid));
+			double advanceTaxPaidRounded = roundToWholeNumber(advanceTaxPaid);
 			System.out.println("Advance tax  = "
 					+ twoDecimalsFormat.format(advanceTaxPaid) + " rounded = "
 					+ wholeNumberFormat.format(advanceTaxPaidRounded));
@@ -168,5 +167,9 @@ public class TaxCalculator {
 
 	public static double calculateHealthContributionDeductible(double income) {
 		return (income * HEALTH_CONTRIBUTION_DEDUCTIBLE_RATE_PERCENT) / 100;
+	}
+
+	public static double roundToWholeNumber(double value) {
+		return Double.parseDouble(new DecimalFormat("#").format(value));
 	}
 }

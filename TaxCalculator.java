@@ -5,18 +5,18 @@ import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 
 public class TaxCalculator {
-	private static final double SOCIAL_SECURITY_RATE_PERCENT = 9.76;
-	private static final double SOCIAL_HEALTH_SECURITY_RATE_PERCENT = 1.5;
-	private static final double SOCIAL_SICK_SECURITY_RATE_PERCENT = 2.45;
+	private static final double PENSION_RATE_PERCENT = 9.76;
+	private static final double DISABILITY_RATE_PERCENT = 1.5;
+	private static final double SICKNESS_RATE_PERCENT = 2.45;
 	private static final double HEALTH_CONTRIBUTION_FULL_RATE_PERCENT = 9;
 	private static final double HEALTH_CONTRIBUTION_DEDUCTIBLE_RATE_PERCENT = 7.75;
 	private static final double ADVANCE_TAX_RATE_PERCENT = 18;
 	private static final double CIVIL_DEDUCTIBLE_EXPENSES_RATE_PERCENT = 20;
 	private static final double EMPLOYMENT_DEDUCTIBLE_EXPENSES = 111.25;
 	private static final double EMPLOYMENT_TAX_FREE_INCOME = 46.33;
-	public static double socialSecurity = 0;
-	public static double socialHealthSecurity = 0;
-	public static double socialSickSecurity = 0;
+	public static double pensionContribution = 0;
+	public static double disabilityContribution = 0;
+	public static double sicknessContribution = 0;
 	public static double taxDeductibleExpenses = EMPLOYMENT_DEDUCTIBLE_EXPENSES;
 	public static double advanceTax = 0;
 	public static double advanceTaxPaid = 0;
@@ -53,12 +53,12 @@ public class TaxCalculator {
 			System.out.println("Income " + income);
 			calculateIncome(income);
 			System.out.println("Social security tax "
-					+ twoDecimalsFormat.format(socialSecurity));
+					+ twoDecimalsFormat.format(pensionContribution));
 
 			System.out.println("Health social security tax    "
-					+ twoDecimalsFormat.format(socialHealthSecurity));
+					+ twoDecimalsFormat.format(disabilityContribution));
 			System.out.println("Sickness social security tax  "
-					+ twoDecimalsFormat.format(socialSickSecurity));
+					+ twoDecimalsFormat.format(sicknessContribution));
 			System.out
 					.println("Income basis for health social security: "
 							+ income);
@@ -86,7 +86,7 @@ public class TaxCalculator {
 					+ twoDecimalsFormat.format(advanceTaxPaid) + " rounded = "
 					+ wholeNumberFormat.format(advanceTaxPaidRounded));
 			double netIncome = income
-					- ((socialSecurity + socialHealthSecurity + socialSickSecurity) + healthContributionFull + advanceTaxPaidRounded);
+					- ((pensionContribution + disabilityContribution + sicknessContribution) + healthContributionFull + advanceTaxPaidRounded);
 			System.out.println();
 			System.out
 					.println("Net income = "
@@ -95,11 +95,11 @@ public class TaxCalculator {
 			System.out.println("income " + income);
 			double incomeAfterSocialContributions = calculateIncome(income);
 			System.out.println("Social security tax = "
-					+ twoDecimalsFormat.format(socialSecurity));
+					+ twoDecimalsFormat.format(pensionContribution));
 			System.out.println("Health social security tax = "
-					+ twoDecimalsFormat.format(socialHealthSecurity));
+					+ twoDecimalsFormat.format(disabilityContribution));
 			System.out.println("Sickness social security tax = "
-					+ twoDecimalsFormat.format(socialSickSecurity));
+					+ twoDecimalsFormat.format(sicknessContribution));
 			System.out
 					.println("Income for calculating health security tax: "
 							+ incomeAfterSocialContributions);
@@ -127,7 +127,7 @@ public class TaxCalculator {
 					+ twoDecimalsFormat.format(advanceTaxPaid) + " rounded = "
 					+ wholeNumberFormat.format(advanceTaxPaidRounded));
 			double netIncome = incomeAfterSocialContributions
-					- ((socialSecurity + socialHealthSecurity + socialSickSecurity) + healthContributionFull + advanceTaxPaidRounded);
+					- ((pensionContribution + disabilityContribution + sicknessContribution) + healthContributionFull + advanceTaxPaidRounded);
 			System.out.println();
 			System.out
 					.println("Net income = "
@@ -146,10 +146,10 @@ public class TaxCalculator {
 	}
 
 	public static double calculateIncome(double income) {
-		socialSecurity = (income * SOCIAL_SECURITY_RATE_PERCENT) / 100;
-		socialHealthSecurity = (income * SOCIAL_HEALTH_SECURITY_RATE_PERCENT) / 100;
-		socialSickSecurity = (income * SOCIAL_SICK_SECURITY_RATE_PERCENT) / 100;
-		return (income - socialSecurity - socialHealthSecurity - socialSickSecurity);
+		pensionContribution = (income * PENSION_RATE_PERCENT) / 100;
+		disabilityContribution = (income * DISABILITY_RATE_PERCENT) / 100;
+		sicknessContribution = (income * SICKNESS_RATE_PERCENT) / 100;
+		return (income - pensionContribution - disabilityContribution - sicknessContribution);
 	}
 
 	public static void calculateOtherTaxes(double income) {

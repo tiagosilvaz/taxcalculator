@@ -46,3 +46,8 @@ Replaced them with named constants, for example `ADVANCE_TAX_RATE_PERCENT` and `
 **10. Lines 11, 12-14, 15, 17-20:** comments that repeat the code or are misleading (`// health-related taxes` was above variables that are not about health, and `= 0; // ... 9%` looked contradictory).
 Removed. The rates are now in named constants, and the variable names explain the rest.
 *Rule: Don't be redundant, Always try to explain yourself in code.*
+
+**11. Lines 12-14:** `socialSecurity`, `socialHealthSecurity`, `socialSickSecurity` did not say what each contribution is, and `socialHealthSecurity` (1.5%) is not a health contribution, it is the disability contribution.
+Renamed to `pensionContribution` (9.76%), `disabilityContribution` (1.5%), `sicknessContribution` (2.45%), and the same for the rate constants.
+The printed texts (for example "Health social security tax") were left unchanged to keep the program output the same.
+*Rule: Make meaningful distinction, Choose descriptive and unambiguous names.*

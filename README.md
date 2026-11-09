@@ -52,11 +52,11 @@ Renamed to `pensionContribution` (9.76%), `disabilityContribution` (1.5%), `sick
 The printed texts (for example "Health social security tax") were left unchanged to keep the program output the same.
 *Rule: Make meaningful distinction, Choose descriptive and unambiguous names.*
 
-**12. Lines 134-136, method `calculateAdvanceTaxPaid`:** it had no parameters and read three fields, and wrote its result into a field (side effect).
+**12. Lines 134-136, method `calculateAdvanceTax`:** it had no parameters and read three fields, and wrote its result into a field (side effect).
 Now it receives the values as parameters and returns the result.
 *Rule: Have no side effects.*
 
-**13. Lines 138-140, method `calculateAdvanceTax`:** it wrote its result into a field instead of returning it.
+**13. Lines 138-140, method `calculateTax`:** it wrote its result into a field instead of returning it.
 Now it only returns the result; the caller stores it.
 *Rule: Have no side effects.*
 
@@ -111,6 +111,10 @@ Moved it to `percentOf` and used it in all the places.
 **26. Lines 134-140 (methods `calculateAdvanceTax` and `calculateTax`):** the two names were too similar and did not say what each method returns. `calculateTax` returned the advance tax and `calculateAdvanceTax` returned the advance tax paid. Its parameter `income` was in fact the taxed income.
 Renamed to `calculateAdvanceTax(taxedIncome)` and `calculateAdvanceTaxPaid`, the same names as the variables that store their results.
 *Rule: Make meaningful distinction, Choose descriptive and unambiguous names.*
+
+**27. Lines 42-43:** the two `DecimalFormat` objects were created in `main` and passed to the methods that print, so each method received two extra arguments.
+Made them constants of the class (`TWO_DECIMALS_FORMAT`, `WHOLE_NUMBER_FORMAT`). `printEmploymentSummary` and `printCivilSummary` now receive only the income, and `roundToWholeNumber` uses the same constant instead of creating a new one every time.
+*Rule: Prefer fewer arguments.*
 
 ## Not changed
 

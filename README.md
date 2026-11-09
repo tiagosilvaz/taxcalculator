@@ -79,3 +79,7 @@ Extracted to the method `roundToWholeNumber`.
 **18. Lines 25-132:** `main` read the input, did all the calculations and printed everything for both contract types in one method of about 110 lines.
 Moved the code of each contract type to its own method (`printEmploymentSummary`, `printCivilSummary`). `main` now only reads the input and chooses the method.
 *Rule: Small, Do one thing.*
+
+**19. Lines 66 and 109:** `taxedIncome0`: the `0` does not say it is the rounded value.
+Renamed to `taxedIncomeRounded`.
+*Rule: Make meaningful distinction.*

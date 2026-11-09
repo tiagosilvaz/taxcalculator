@@ -111,10 +111,10 @@ public class TaxCalculator {
 				+ taxDeductibleExpenses
 		);
 		double taxedIncome = income - taxDeductibleExpenses ;
-		double taxedIncome0 = roundToWholeNumber(taxedIncome);
+		double taxedIncomeRounded = roundToWholeNumber(taxedIncome);
 		System.out.println("income " + taxedIncome
-				+ " rounded " + wholeNumberFormat.format(taxedIncome0));
-		double advanceTax = calculateTax(taxedIncome0);
+				+ " rounded " + wholeNumberFormat.format(taxedIncomeRounded));
+		double advanceTax = calculateTax(taxedIncomeRounded);
 		System.out.println("Advance tax 18 % = "
 				+ advanceTax);
 		System.out.println("Tax free income = " + taxFreeIncome);
@@ -159,10 +159,10 @@ public class TaxCalculator {
 				+ taxDeductibleExpenses
 		);
 		double taxedIncome = incomeAfterSocialContributions - taxDeductibleExpenses ;
-		double taxedIncome0 = roundToWholeNumber(taxedIncome);
+		double taxedIncomeRounded = roundToWholeNumber(taxedIncome);
 		System.out.println("income to be taxed = " + taxedIncome
-				+ " rounded = " + wholeNumberFormat.format(taxedIncome0));
-		double advanceTax = calculateTax(taxedIncome0);
+				+ " rounded = " + wholeNumberFormat.format(taxedIncomeRounded));
+		double advanceTax = calculateTax(taxedIncomeRounded);
 		System.out.println("Advance tax 18 % = "
 				+ advanceTax);
 		double taxPaid = 0;

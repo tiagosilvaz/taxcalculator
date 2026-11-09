@@ -83,3 +83,7 @@ Moved the code of each contract type to its own method (`printEmploymentSummary`
 **19. Lines 66 and 109:** `taxedIncome0`: the `0` does not say it is the rounded value.
 Renamed to `taxedIncomeRounded`.
 *Rule: Make meaningful distinction.*
+
+**20. Lines 56-58, 62-65, 85-87, 97-99, 104-108, 126-128:** inconsistent formatting: `println` calls split over several lines (`System.out` alone, `);` alone), spaces before `;` and double spaces before `=`.
+Joined the split calls into one line and removed the extra spaces. The printed texts were not changed.
+*Rule: Be consistent, Follow standard conventions.*

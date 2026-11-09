@@ -100,17 +100,15 @@ public class TaxCalculator {
 				+ twoDecimalsFormat.format(disabilityContribution));
 		System.out.println("Sickness social security tax  "
 				+ twoDecimalsFormat.format(sicknessContribution));
-		System.out
-				.println("Income basis for health social security: "
-						+ income);
+		System.out.println("Income basis for health social security: "
+				+ income);
 		double healthContributionFull = calculateHealthContributionFull(income);
 		double healthContributionDeductible = calculateHealthContributionDeductible(income);
 		System.out.println("Health social security tax: 9% = "
 				+ twoDecimalsFormat.format(healthContributionFull) + " 7,75% = " + twoDecimalsFormat.format(healthContributionDeductible));
 		System.out.println("Tax deductible expenses "
-				+ taxDeductibleExpenses
-		);
-		double taxedIncome = income - taxDeductibleExpenses ;
+				+ taxDeductibleExpenses);
+		double taxedIncome = income - taxDeductibleExpenses;
 		double taxedIncomeRounded = roundToWholeNumber(taxedIncome);
 		System.out.println("income " + taxedIncome
 				+ " rounded " + wholeNumberFormat.format(taxedIncomeRounded));
@@ -129,9 +127,8 @@ public class TaxCalculator {
 		double netIncome = income
 				- ((pensionContribution + disabilityContribution + sicknessContribution) + healthContributionFull + advanceTaxPaidRounded);
 		System.out.println();
-		System.out
-				.println("Net income = "
-						+ twoDecimalsFormat.format(netIncome));
+		System.out.println("Net income = "
+				+ twoDecimalsFormat.format(netIncome));
 	}
 
 	public static void printCivilSummary(double income, DecimalFormat twoDecimalsFormat, DecimalFormat wholeNumberFormat) {
@@ -146,19 +143,17 @@ public class TaxCalculator {
 				+ twoDecimalsFormat.format(disabilityContribution));
 		System.out.println("Sickness social security tax = "
 				+ twoDecimalsFormat.format(sicknessContribution));
-		System.out
-				.println("Income for calculating health security tax: "
-						+ incomeAfterSocialContributions);
+		System.out.println("Income for calculating health security tax: "
+				+ incomeAfterSocialContributions);
 		double healthContributionFull = calculateHealthContributionFull(incomeAfterSocialContributions);
 		double healthContributionDeductible = calculateHealthContributionDeductible(incomeAfterSocialContributions);
 		System.out.println("Health security tax: 9% = "
 				+ twoDecimalsFormat.format(healthContributionFull) + " 7,75% = " + twoDecimalsFormat.format(healthContributionDeductible));
 		double taxFreeIncome = 0;
-		double taxDeductibleExpenses  = (incomeAfterSocialContributions * CIVIL_DEDUCTIBLE_EXPENSES_RATE_PERCENT) / 100;
+		double taxDeductibleExpenses = (incomeAfterSocialContributions * CIVIL_DEDUCTIBLE_EXPENSES_RATE_PERCENT) / 100;
 		System.out.println("Tax deductible expenses = "
-				+ taxDeductibleExpenses
-		);
-		double taxedIncome = incomeAfterSocialContributions - taxDeductibleExpenses ;
+				+ taxDeductibleExpenses);
+		double taxedIncome = incomeAfterSocialContributions - taxDeductibleExpenses;
 		double taxedIncomeRounded = roundToWholeNumber(taxedIncome);
 		System.out.println("income to be taxed = " + taxedIncome
 				+ " rounded = " + wholeNumberFormat.format(taxedIncomeRounded));
@@ -176,8 +171,7 @@ public class TaxCalculator {
 		double netIncome = incomeAfterSocialContributions
 				- ((pensionContribution + disabilityContribution + sicknessContribution) + healthContributionFull + advanceTaxPaidRounded);
 		System.out.println();
-		System.out
-				.println("Net income = "
-						+ twoDecimalsFormat.format(netIncome));
+		System.out.println("Net income = "
+				+ twoDecimalsFormat.format(netIncome));
 	}
 }

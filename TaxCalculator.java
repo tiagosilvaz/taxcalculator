@@ -1,6 +1,7 @@
 package com.bartoszwalter.students.taxes;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 
@@ -40,15 +41,9 @@ public class TaxCalculator {
 		double income = 0;
 		char contractCode = ' ';
 		try {
-			InputStreamReader inputStreamReader = new InputStreamReader(System.in);
-			BufferedReader inputReader = new BufferedReader(inputStreamReader);
-
-			System.out.print("Enter income: ");
-			income = Double.parseDouble(inputReader.readLine());
-
-			System.out.print("Contract Type: (E)mployment, (C)ivil: ");
-			contractCode = inputReader.readLine().charAt(0);
-
+			BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
+			income = readIncome(inputReader);
+			contractCode = readContractCode(inputReader);
 		} catch (Exception ex) {
 			System.out.println("Incorrect");
 			System.err.println(ex);
@@ -68,6 +63,16 @@ public class TaxCalculator {
 			default:
 				System.out.println("Unknown type of contract!");
 		}
+	}
+
+	private static double readIncome(BufferedReader inputReader) throws IOException {
+		System.out.print("Enter income: ");
+		return Double.parseDouble(inputReader.readLine());
+	}
+
+	private static char readContractCode(BufferedReader inputReader) throws IOException {
+		System.out.print("Contract Type: (E)mployment, (C)ivil: ");
+		return inputReader.readLine().charAt(0);
 	}
 
 	public static double calculateAdvanceTax(double advanceTax, double healthContributionDeductible, double taxFreeIncome) {

@@ -91,3 +91,7 @@ Joined the split calls into one line and removed the extra spaces. The printed t
 **21. Lines 10, 34, 45, 88:** the contract type was a `char` with the magic values `'E'` and `'C'`, so any letter was accepted by the compiler.
 Replaced by the enum `ContractType` (`EMPLOYMENT`, `CIVIL`, `UNKNOWN`) and a `switch` in `main`. Unknown letters still print the same message.
 *Rule: Prefer dedicated value objects to primitive type.*
+
+**22. Lines 26-40:** `main` read the input, handled errors and chose the calculation all in one place.
+Moved the reading to `readIncome` and `readContractCode`. The `catch (Exception)` was kept on purpose: it also covers end of input and an empty contract type, and narrowing it would change what the program prints.
+*Rule: Small, Do one thing.*

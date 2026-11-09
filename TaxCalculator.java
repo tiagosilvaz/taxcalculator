@@ -79,12 +79,12 @@ public class TaxCalculator {
 		return (value * ratePercent) / 100;
 	}
 
-	public static double calculateAdvanceTax(double advanceTax, double healthContributionDeductible, double taxFreeIncome) {
+	public static double calculateAdvanceTaxPaid(double advanceTax, double healthContributionDeductible, double taxFreeIncome) {
 		return advanceTax - healthContributionDeductible - taxFreeIncome;
 	}
 
-	public static double calculateTax(double income) {
-		return percentOf(income, ADVANCE_TAX_RATE_PERCENT);
+	public static double calculateAdvanceTax(double taxedIncome) {
+		return percentOf(taxedIncome, ADVANCE_TAX_RATE_PERCENT);
 	}
 
 	public static double calculatePensionContribution(double income) {
@@ -155,14 +155,14 @@ public class TaxCalculator {
 		double taxedIncomeRounded = roundToWholeNumber(taxedIncome);
 		System.out.println("income " + taxedIncome
 				+ " rounded " + wholeNumberFormat.format(taxedIncomeRounded));
-		double advanceTax = calculateTax(taxedIncomeRounded);
+		double advanceTax = calculateAdvanceTax(taxedIncomeRounded);
 		System.out.println("Advance tax 18 % = "
 				+ advanceTax);
 		System.out.println("Tax free income = " + taxFreeIncome);
 		double taxPaid = advanceTax - taxFreeIncome;
 		System.out.println("Reduced tax = "
 				+ twoDecimalsFormat.format(taxPaid));
-		double advanceTaxPaid = calculateAdvanceTax(advanceTax, healthContributionDeductible, taxFreeIncome);
+		double advanceTaxPaid = calculateAdvanceTaxPaid(advanceTax, healthContributionDeductible, taxFreeIncome);
 		double advanceTaxPaidRounded = roundToWholeNumber(advanceTaxPaid);
 		System.out.println("Advance tax paid = "
 				+ twoDecimalsFormat.format(advanceTaxPaid) + " rounded = "
@@ -199,13 +199,13 @@ public class TaxCalculator {
 		double taxedIncomeRounded = roundToWholeNumber(taxedIncome);
 		System.out.println("income to be taxed = " + taxedIncome
 				+ " rounded = " + wholeNumberFormat.format(taxedIncomeRounded));
-		double advanceTax = calculateTax(taxedIncomeRounded);
+		double advanceTax = calculateAdvanceTax(taxedIncomeRounded);
 		System.out.println("Advance tax 18 % = "
 				+ advanceTax);
 		double taxPaid = 0;
 		System.out.println("Already paid tax = "
 				+ twoDecimalsFormat.format(taxPaid));
-		double advanceTaxPaid = calculateAdvanceTax(advanceTax, healthContributionDeductible, taxFreeIncome);
+		double advanceTaxPaid = calculateAdvanceTaxPaid(advanceTax, healthContributionDeductible, taxFreeIncome);
 		double advanceTaxPaidRounded = roundToWholeNumber(advanceTaxPaid);
 		System.out.println("Advance tax  = "
 				+ twoDecimalsFormat.format(advanceTaxPaid) + " rounded = "

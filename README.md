@@ -52,11 +52,11 @@ Renamed to `pensionContribution` (9.76%), `disabilityContribution` (1.5%), `sick
 The printed texts (for example "Health social security tax") were left unchanged to keep the program output the same.
 *Rule: Make meaningful distinction, Choose descriptive and unambiguous names.*
 
-**12. Lines 134-136, method `calculateAdvanceTax`:** it had no parameters and read three fields, and wrote its result into a field (side effect).
+**12. Lines 134-136, method `calculateAdvanceTaxPaid`:** it had no parameters and read three fields, and wrote its result into a field (side effect).
 Now it receives the values as parameters and returns the result.
 *Rule: Have no side effects.*
 
-**13. Lines 138-140, method `calculateTax`:** it wrote its result into a field instead of returning it.
+**13. Lines 138-140, method `calculateAdvanceTax`:** it wrote its result into a field instead of returning it.
 Now it only returns the result; the caller stores it.
 *Rule: Have no side effects.*
 
@@ -107,6 +107,10 @@ Moved it to `calculateSocialContributionsTotal`.
 **25. Lines 104, 139, 143-145, 150-151:** the calculation `(income * rate) / 100` was written seven times.
 Moved it to `percentOf` and used it in all the places.
 *Rule: Needless repetition (DRY).*
+
+**26. Lines 134-140 (methods `calculateAdvanceTax` and `calculateTax`):** the two names were too similar and did not say what each method returns. `calculateTax` returned the advance tax and `calculateAdvanceTax` returned the advance tax paid. Its parameter `income` was in fact the taxed income.
+Renamed to `calculateAdvanceTax(taxedIncome)` and `calculateAdvanceTaxPaid`, the same names as the variables that store their results.
+*Rule: Make meaningful distinction, Choose descriptive and unambiguous names.*
 
 ## Not changed
 

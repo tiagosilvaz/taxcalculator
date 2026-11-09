@@ -75,3 +75,7 @@ Replaced them with local variables inside each branch of `main` and removed the 
 **17. Lines 66-67, 78, 109, 119:** the same rounding code `Double.parseDouble(df.format(...))` was repeated four times.
 Extracted to the method `roundToWholeNumber`.
 *Rule: Needless repetition.*
+
+**18. Lines 25-132:** `main` read the input, did all the calculations and printed everything for both contract types in one method of about 110 lines.
+Moved the code of each contract type to its own method (`printEmploymentSummary`, `printCivilSummary`). `main` now only reads the input and chooses the method.
+*Rule: Small, Do one thing.*

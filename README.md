@@ -52,11 +52,11 @@ Renamed to `pensionContribution` (9.76%), `disabilityContribution` (1.5%), `sick
 The printed texts (for example "Health social security tax") were left unchanged to keep the program output the same.
 *Rule: Make meaningful distinction, Choose descriptive and unambiguous names.*
 
-**12. Method `calculateAdvanceTax`:** it had no parameters and read three fields, and wrote its result into a field (side effect).
+**12. Lines 134-136, method `calculateAdvanceTax`:** it had no parameters and read three fields, and wrote its result into a field (side effect).
 Now it receives the values as parameters and returns the result.
 *Rule: Have no side effects, Prefer fewer arguments only when they are hidden inputs.*
 
-**13. Method `calculateTax`:** it wrote its result into a field instead of returning it.
+**13. Lines 138-140, method `calculateTax`:** it wrote its result into a field instead of returning it.
 Now it only returns the result; the caller stores it.
 *Rule: Have no side effects.*
 
@@ -96,6 +96,16 @@ Replaced by the enum `ContractType` (`EMPLOYMENT`, `CIVIL`, `UNKNOWN`) and a `sw
 Moved the reading to `readIncome` and `readContractCode`. The `catch (Exception)` was kept on purpose: it also covers end of input and an empty contract type, and narrowing it would change what the program prints.
 *Rule: Small, Do one thing.*
 
-**23. Lines 82-87 and 123-128:** the net income formula was written twice, once per contract type.
+**23. Lines 82-83 and 123-124:** the net income formula was written twice, once per contract type.
 Moved it to `calculateNetIncome`. The only difference between the two cases (the income used as base) became a parameter.
 *Rule: Needless repetition (DRY).*
+
+**24. Lines 83 and 124:** the sum of the three social contributions (`soc_security + soc_health_security + soc_sick_security`) was written twice.
+Moved it to `calculateSocialContributionsTotal`.
+*Rule: Needless repetition (DRY).*
+
+## Not changed
+
+- `printEmploymentSummary` and `printCivilSummary` still calculate and print in the same method, and have a similar structure. Separating them would mean rebuilding the output order and the risk of changing the program output was too high for this exercise.
+- The `catch (Exception)` in `main` was kept to keep the same behavior (see 22).
+- Printed texts were not changed (for example "Health social security tax" prints the disability value, see 11).
